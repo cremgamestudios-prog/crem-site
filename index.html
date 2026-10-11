@@ -169,7 +169,7 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
       <a href="#updates">Updates</a>
     </div>
     <div class="navcta">
-      <a class="btn btn-primary" href="https://github.com/cremgamestudios-prog/crem-releases/releases/latest">Download</a>
+      <a class="btn btn-primary" data-download href="https://github.com/cremgamestudios-prog/crem-releases/releases/latest">Download</a>
     </div>
   </div>
 </nav>
@@ -179,7 +179,7 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
   <h1 class="hero-h">Where your team's work<br>actually <span class="grad">gets done.</span></h1>
   <p class="hero-sub">C-Rem Task Manager is the workspace where a team captures work, organizes it, collaborates on it, and measures progress — without fifteen tabs and a spreadsheet holding it together.</p>
   <div class="hero-ctas">
-    <a class="btn btn-primary" href="https://github.com/cremgamestudios-prog/crem-releases/releases/latest" style="padding:13px 24px;font-size:15px">Download for Windows</a>
+    <a class="btn btn-primary" data-download href="https://github.com/cremgamestudios-prog/crem-releases/releases/latest" style="padding:13px 24px;font-size:15px">Download for Windows</a>
     <a class="btn btn-ghost" href="#workflow" style="padding:13px 24px;font-size:15px">See how it works</a>
   </div>
 
@@ -314,7 +314,18 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
   <p class="sec-p">Every release, newest first. The update notice inside the app brings you here.</p>
   <!-- To add a release: copy a .rn block below, put it ABOVE the previous one, and move the "Latest" chip to it. -->
   <div class="rn">
-    <div class="rn-h"><h3>Version 2.0.0</h3><span class="chip">Latest</span></div>
+    <div class="rn-h"><h3>Version 2.1.3</h3><span class="chip">Latest</span></div>
+    <ul>
+      <li><b>Password-protected sign-in.</b> Every account now has its own password, and passwords are stored hashed instead of as plain text.</li>
+      <li><b>Warnings for easy passwords</b> when you create a team or an account.</li>
+      <li><b>Existing accounts keep working.</b> The first time you open the app after updating, you are asked to create a password. Your teams and tasks are unchanged.</li>
+      <li><b>Your data upgrades itself.</b> After an update, a team's older data is converted to the current format automatically.</li>
+      <li><b>Update from inside the app.</b> When a new version is out, choose Update now. It downloads in the background and installs the next time you close the app.</li>
+      <li><b>Safer renaming.</b> You can no longer take a name that another member of your team already uses.</li>
+    </ul>
+  </div>
+  <div class="rn">
+    <div class="rn-h"><h3>Version 2.0.0</h3></div>
     <ul>
       <li><b>Board, List and Calendar views</b> for the same tasks.</li>
       <li><b>Natural-language Quick Add.</b> One line sets the category, priority, due date, time and assignee, using @category, #priority and +assignee.</li>
@@ -333,7 +344,7 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
 <section class="cta-end">
   <h2>Stop managing work across six tools.</h2>
   <p class="sec-p" style="margin:0 auto 26px;text-align:center">Capture, prioritize, schedule, assign, work, review, complete, measure. One workspace.</p>
-  <a class="btn btn-primary" href="https://github.com/cremgamestudios-prog/crem-releases/releases/latest" style="padding:14px 30px;font-size:15px">Download for Windows</a>
+  <a class="btn btn-primary" data-download href="https://github.com/cremgamestudios-prog/crem-releases/releases/latest" style="padding:14px 30px;font-size:15px">Download for Windows</a>
 </section>
 
 <footer>
@@ -373,6 +384,22 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
     });},{threshold:.5});
     clips.forEach(function(c){co.observe(c);});
   }else{clips.forEach(function(c){c.src=c.getAttribute('data-src');});}
+})();
+</script>
+<script>
+// Download buttons: point straight at the newest installer so one click downloads it.
+// If GitHub can't be reached (offline, rate limit), the buttons keep their fallback: the releases page.
+(function(){
+  var links=[].slice.call(document.querySelectorAll('a[data-download]'));
+  if(!links.length||!window.fetch) return;
+  fetch('https://api.github.com/repos/cremgamestudios-prog/crem-releases/releases/latest',{headers:{Accept:'application/vnd.github+json'}})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(rel){
+      if(!rel||!rel.assets) return;
+      var a=rel.assets.filter(function(x){return /setup.*\.exe$/i.test(x.name);})[0];
+      if(!a) return;
+      links.forEach(function(l){l.href=a.browser_download_url;l.title='Download version '+String(rel.tag_name||'').replace(/^v/,'');});
+    }).catch(function(){});
 })();
 </script>
 </body>
