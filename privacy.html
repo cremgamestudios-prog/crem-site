@@ -45,7 +45,7 @@ footer{border-top:1px solid var(--border);padding:26px 0;color:var(--muted);font
 
 <h2>2. What the app stores</h2>
 <ul>
-<li><b>Account details:</b> your username, your team's name, and passwords. Passwords (yours and your team's) are stored only as salted hashes, never as the password itself.</li>
+<li><b>Account details:</b> your username and password, and your team's name and password. Your own password is handled by Firebase Authentication (Google), which keeps it in hashed form; the app never stores it. The team password is stored only as a salted hash. Each account also gets a random internal ID.</li>
 <li><b>Your content:</b> tasks, descriptions, subtasks, comments, labels, categories, due dates, assignments and attached images.</li>
 <li><b>Activity:</b> when you were last active (to show who is online), and when tasks were started and completed (to calculate streaks, work time, statistics and the team ranking). Everyone in your team can see this.</li>
 <li><b>On your device:</b> your preferences (theme, colors, view) and a local copy of your team's data, so the app keeps working through short connection drops.</li>
@@ -54,12 +54,13 @@ footer{border-top:1px solid var(--border);padding:26px 0;color:var(--muted);font
 <h2>3. How your data is protected</h2>
 <ul>
 <li>Data travels to our database over encrypted connections (HTTPS/TLS), and Google encrypts the data it stores in its data centers.</li>
-<li>Passwords are hashed before they are stored.</li>
+<li>Passwords are hashed before they are stored, and access rules limit who can read or change a team's data to the members of that team.</li>
 </ul>
 <div class="note"><p><b>Please note:</b> C-Rem does not add its own end-to-end encryption to your tasks. Task content is stored in readable form in our database. That means C-Rem Studios, as the administrator of that database, could technically read it, and every member of your team can read and edit everything in the team. Please do not store passwords, financial or health information, or other sensitive secrets in tasks.</p></div>
 
 <h2>4. Services we rely on</h2>
 <ul>
+<li><b>Firebase Authentication</b> signs you in and checks your password.</li>
 <li><b>Google Firebase (Firestore)</b> stores your data and keeps it in sync between team members. When the app connects, Google processes technical data such as your IP address and device information under its own terms (<a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase privacy information</a>).</li>
 <li><b>GitHub</b> hosts this website and the app's installers and updates. When you visit the site, download the app or check for an update, GitHub receives your IP address and request details (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub privacy statement</a>).</li>
 <li><b>Google Fonts</b> is used by this website, so Google receives your IP address when you open it.</li>

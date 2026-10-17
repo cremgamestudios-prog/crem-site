@@ -314,7 +314,17 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
   <p class="sec-p">Every release, newest first. The update notice inside the app brings you here.</p>
   <!-- To add a release: copy a .rn block below, put it ABOVE the previous one, and move the "Latest" chip to it. -->
   <div class="rn">
-    <div class="rn-h"><h3>Version 2.1.3</h3><span class="chip">Latest</span></div>
+    <div class="rn-h"><h3>Version 2.2.0</h3><span class="chip">Latest</span></div>
+    <ul>
+      <li><b>Real accounts.</b> Sign-in now runs on Firebase Authentication, so your password is checked by Google's sign-in service instead of inside the app.</li>
+      <li><b>Just your name and password.</b> Returning members sign in without the team password. The team password is only needed the first time you join.</li>
+      <li><b>Changing your name asks for your password</b>, and there is now a Sign out button in Settings.</li>
+      <li><b>Your team's data is protected by access rules.</b> You can only read and change the tasks of your own team.</li>
+      <li><b>Existing teams keep their tasks.</b> Each member creates an account (name and password) the first time they open this version.</li>
+    </ul>
+  </div>
+  <div class="rn">
+    <div class="rn-h"><h3>Version 2.1.3</h3></div>
     <ul>
       <li><b>Fixed tasks being deleted or going missing after an update.</b></li>
       <li><b>Password-protected sign-in.</b> Every account now has its own password, and passwords are stored hashed instead of as plain text.</li>
