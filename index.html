@@ -144,6 +144,7 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.zoomable,.clip{transition:none}}
 .rn{border:1px solid var(--border);border-radius:18px;background:var(--surface);padding:28px 30px;max-width:760px}
 .rn+.rn{margin-top:18px}
+.rn-collapsed .rn:nth-child(n+4){display:none}
 .rn-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .rn-h h3{font-size:20px;font-weight:700}
 .rn-h .chip{color:var(--cyan);border-color:rgba(56,189,248,.4)}
@@ -313,8 +314,19 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
   <h2 class="sec-h">What's new in C-Rem Task Manager.</h2>
   <p class="sec-p">Every release, newest first. The update notice inside the app brings you here.</p>
   <!-- To add a release: copy a .rn block below, put it ABOVE the previous one, and move the "Latest" chip to it. -->
+  <div id="rn-list">
   <div class="rn">
-    <div class="rn-h"><h3>Version 2.2.0</h3><span class="chip">Latest</span></div>
+    <div class="rn-h"><h3>Version 2.2.5</h3><span class="chip">Latest</span></div>
+    <ul>
+      <li><b>Voice dictation tells you what is wrong.</b> If the microphone is blocked or the speech service can't be reached, you now get a clear message, with a shortcut to the Windows microphone settings, instead of the button switching off silently.</li>
+      <li><b>Keyboard shortcuts work again</b> in the desktop app: F11 for full screen, F5 or Ctrl+R to reload, Ctrl + and Ctrl &minus; to zoom, and F12 for developer tools.</li>
+      <li><b>Tasks open more reliably.</b> A click with a slightly moving mouse no longer counts as a drag.</li>
+      <li><b>Drag and drop in List view.</b> Move tasks between statuses and reorder them, the same as on the board.</li>
+      <li><b>Quick Add:</b> click anywhere in the empty space of the bar to start typing.</li>
+    </ul>
+  </div>
+  <div class="rn">
+    <div class="rn-h"><h3>Version 2.2.0</h3></div>
     <ul>
       <li><b>Real accounts.</b> Sign-in now runs on Firebase Authentication, so your password is checked by Google's sign-in service instead of inside the app.</li>
       <li><b>Just your name and password.</b> Returning members sign in without the team password. The team password is only needed the first time you join.</li>
@@ -351,6 +363,8 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
       <li><b>Light and dark themes</b>, accent colors, and a calmer Simple style.</li>
     </ul>
   </div>
+  </div>
+  <button type="button" class="btn btn-ghost" id="rn-toggle" style="display:none;margin-top:20px">All release notes</button>
 </section>
 
 <section class="cta-end">
@@ -412,6 +426,15 @@ section.cta-end h2{font-size:clamp(26px,3.6vw,38px);margin-bottom:18px}
       if(!a) return;
       links.forEach(function(l){l.href=a.browser_download_url;l.title='Download version '+String(rel.tag_name||'').replace(/^v/,'');});
     }).catch(function(){});
+})();
+</script>
+<script>
+// Release notes: show the newest 3, with a button for the full history. Without JavaScript everything stays visible.
+(function(){
+  var list=document.getElementById('rn-list'),btn=document.getElementById('rn-toggle');
+  if(!list||!btn||list.querySelectorAll('.rn').length<=3) return;
+  list.classList.add('rn-collapsed'); btn.style.display='';
+  btn.addEventListener('click',function(){var c=list.classList.toggle('rn-collapsed');btn.textContent=c?'All release notes':'Show fewer';});
 })();
 </script>
 </body>
